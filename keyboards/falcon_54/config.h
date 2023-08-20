@@ -42,14 +42,13 @@
 #define CHARYBDIS_DRAGSCROLL_DPI 200
 
 //#define CHARYBDIS_POINTER_ACCELERATION_ENABLE
-
-
 //#define MOUSE_SLOPE 1500
 //#define DPI_OPTS { 400, 1600 }
 
 #define POINTING_DEVICE_DEBUG
 
-
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 5
 
 
 //========================================================================================
