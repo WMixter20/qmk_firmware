@@ -68,12 +68,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_ENC_TOG:
       if (record->event.pressed) {
-	// Go to the next encoder mode, looping around to the start.
+    	// Go to the next encoder mode, looping around to the start.
 	    encoder_mode = (encoder_mode + 1) % NUM_ENC_MODES;
       }
       break;
   }
-  return false;
+  return true;
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
@@ -104,7 +104,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         if (clockwise) {
           tap_code(KC_MS_UP);
         } else {
-          tap_code(KC_MS_UP);
+          tap_code(KC_MS_DOWN);
         }
 	    break;
     }
