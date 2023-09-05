@@ -54,12 +54,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-#define NUM_ENC_MODES 4
+#define NUM_ENC_MODES 2
 enum encoder_modes{
     VOLUME,
     SCROLL,
-    MOUSEX,
-    MOUSEY,
 };
 
 static uint8_t encoder_mode = VOLUME;
@@ -91,20 +89,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
           tap_code(KC_PGDN);
         } else {
           tap_code(KC_PGUP);
-        }
-	    break;
-      case MOUSEX:
-        if (clockwise) {
-          tap_code(KC_MS_RIGHT);
-        } else {
-          tap_code(KC_MS_LEFT);
-        }
-	    break;
-            case MOUSEY:
-        if (clockwise) {
-          tap_code(KC_MS_UP);
-        } else {
-          tap_code(KC_MS_DOWN);
         }
 	    break;
     }
