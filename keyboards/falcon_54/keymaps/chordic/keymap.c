@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_LCTL,        KC_LALT,      KC_LCMD,      KC_SPC,            KC_BSPC,   KC_RCMD,       KC_ENT,       KC_DEL
 
     ),
-        [_FN1] = LAYOUT_split_5x6(
+        [_FN2] = LAYOUT_split_5x6(
         KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      TO(_BASE),                                   KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                            
         KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                                     KC_TRNS,      KC_1,         KC_2,         KC_3,         KC_TRNS,      KC_TRNS,                              
         KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                                     KC_TRNS,      KC_4,         KC_5,         KC_6,         KC_TRNS,      KC_TRNS,                              
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      TO(_BASE),                                   KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                            
         KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                                     KC_TRNS,      KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_TRNS,                              
         KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                                     KC_TRNS,      KC_F5,        KC_F6,        KC_F7,        KC_F8,        KC_TRNS,                              
-                      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                       KC_TRNS,      KC_F9,         KC_F10,       KC_F11,       KC_F12,      
+                      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,                       KC_TRNS,      KC_9,         KC_F10,       KC_F11,       KC_F12,      
                                                   KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,         KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS
 
     )
@@ -325,11 +325,11 @@ enum combos {
 
 combo_t key_combos[] = {
     //Number layer
-    [D_F_LAYER] = COMBO(d_f_layer, TT(_FN1)),
-    [W_D_LAYER] = COMBO(w_d_layer, TT(_FN1)),
+    [D_F_LAYER] = COMBO(d_f_layer, TT(1)),
+    [W_D_LAYER] = COMBO(w_d_layer, TT(1)),
 
     //Function layer
-    [Q_W_LAYER] = COMBO(q_w_layer, TT(_FN2)),
+    [Q_W_LAYER] = COMBO(q_w_layer, TT(2)),
 
     //Common symbols
     [UP_L_DOT] = COMBO(UP_L_dot, KC_DOT),
