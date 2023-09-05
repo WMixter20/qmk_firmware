@@ -5,7 +5,9 @@
 
 enum wm_keycodes {
     KC_CLEAD = SAFE_RANGE,
+    KC_ENC_TOG,
 };
+
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     return mouse_report;
@@ -15,8 +17,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT_split_5x6(
         KC_ESC,         KC_1,         KC_2,          KC_3,         KC_4,         KC_5,                                         KC_CLEAD,        KC_6,      KC_7,         KC_8,         KC_9,      KC_0,                           
-        KC_TAB,         KC_Q,         KC_W,          KC_E,         KC_R,         KC_T,                                         KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,      KC_NO,                              
-        KC_LSFT,        KC_A,         KC_S,          KC_D,         KC_F,         KC_G,                                         KC_H,         KC_J,         KC_K,         KC_UP,        KC_L,      KC_NO,                              
+        KC_TAB,         KC_Q,         KC_W,          KC_E,         KC_R,         KC_T,                                         KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,      KC_MPLY,                              
+        KC_LSFT,        KC_A,         KC_S,          KC_D,         KC_F,         KC_G,                                         KC_H,         KC_J,         KC_K,         KC_UP,        KC_L,      KC_ENC_TOG,                              
                         KC_Z,         KC_X,          KC_C,         KC_V,         KC_B,        KC_MUTE,                         KC_N,         KC_M,         KC_LEFT,     KC_DOWN,       KC_RIGHT,      
                                                      KC_LCTL,        KC_LALT,      KC_LCMD,      KC_SPC,            KC_BSPC,   KC_RCMD,       KC_ENT,       KC_DEL
 
@@ -50,27 +52,66 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 */
 
-/* The encoder_update_user is a function.
- * It'll be called by QMK every time you turn the encoder.
- *
- * The index parameter tells you which encoder was turned. If you only have
- * one encoder, the index will always be zero.
- * 
- * The clockwise parameter tells you the direction of the encoder. It'll be
- * true when you turned the encoder clockwise, and false otherwise.
- */
+
+
+#define NUM_ENC_MODES 4
+enum encoder_modes{
+    VOLUME,
+    SCROLL,
+    MOUSEX,
+    MOUSEY,
+};
+
+static uint8_t encoder_mode = VOLUME;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_ENC_TOG:
+      if (record->event.pressed) {
+	// Go to the next encoder mode, looping around to the start.
+	    encoder_mode = (encoder_mode + 1) % NUM_ENC_MODES;
+      }
+      break;
+  }
+  return false;
+};
+
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) {
-    if (clockwise) {
-
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
+    switch(encoder_mode){
+      case VOLUME:
+        if (clockwise){
+          tap_code(KC_VOLU);
+        } else{
+          tap_code(KC_VOLD);
+        }
+      break;
+      case SCROLL:
+        if (clockwise) {
+          tap_code(KC_PGDN);
+        } else {
+          tap_code(KC_PGUP);
+        }
+	    break;
+      case MOUSEX:
+        if (clockwise) {
+          tap_code(KC_MS_RIGHT);
+        } else {
+          tap_code(KC_MS_LEFT);
+        }
+	    break;
+            case MOUSEY:
+        if (clockwise) {
+          tap_code(KC_MS_UP);
+        } else {
+          tap_code(KC_MS_UP);
+        }
+	    break;
     }
 
   } 
   return false;
-}
+};
 
 //===========COMBOS============================================
 //Based off https://github.com/gfolgert/qmk_firmware/blob/master/keyboards/crkbd/keymaps/gfolgert/keymaps/keymap.c 
