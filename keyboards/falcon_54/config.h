@@ -35,21 +35,17 @@
 
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_CONFIG_SYNC
 
-#define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
-#define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 400
-#define CHARYBDIS_MINIMUM_SNIPING_DPI 400
-#define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
-#define CHARYBDIS_DRAGSCROLL_DPI 200
-
-//#define CHARYBDIS_POINTER_ACCELERATION_ENABLE
-//#define MOUSE_SLOPE 1500
-//#define DPI_OPTS { 400, 1600 }
-
 #define POINTING_DEVICE_DEBUG
 
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 5
 
+// Mouse key speed and acceleration.
+#define MOUSEKEY_DELAY          0
+#define MOUSEKEY_INTERVAL       16
+#define MOUSEKEY_WHEEL_DELAY    0
+#define MOUSEKEY_MAX_SPEED      128
+#define MOUSEKEY_TIME_TO_MAX    16
 
 //========================================================================================
 /*
