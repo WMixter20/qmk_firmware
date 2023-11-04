@@ -11,3 +11,4 @@ NKRO_ENABLE = yes            				# USB Nkey Rollover
 ENCODER_ENABLE = yes 
 
 BOOTMAGIC_ENABLE = yes
+TAP_DANCE_ENABLE = yes
