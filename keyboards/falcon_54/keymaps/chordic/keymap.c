@@ -6,15 +6,18 @@
 enum wm_keycodes {
     KC_CLEAD = SAFE_RANGE,
     KC_ENC_TOG,
+};
+enum wm_tapdances {
     TD_ESC_TILD = 0,
-    TD_TOG_TILD = 0,
+    TD_TOG_TILD,
+    TD_SHIFT_CAPS
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
     [TD_ESC_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
-    [TD_TOG_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_ENC_TOG, KC_MNXT),
+    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, CW_TOGG),
+    [TD_TOG_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_ENC_TOG, KC_MNXT)
 };
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -26,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_5x6(
         TD(TD_ESC_TILD),         KC_1,         KC_2,          KC_3,         KC_4,         KC_5,                                KC_CLEAD,        KC_6,      KC_7,         KC_8,         KC_9,      KC_0,                           
         KC_TAB,                  KC_Q,         KC_W,          KC_E,         KC_R,         KC_T,                                         KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,      KC_MPLY,                              
-        KC_LSFT,                 KC_A,         KC_S,          KC_D,         KC_F,         KC_G,                                         KC_H,         KC_J,         KC_K,         KC_UP,        KC_L,      KC_MUTE,                              
+        TD(TD_SHIFT_CAPS),                 KC_A,         KC_S,          KC_D,         KC_F,         KC_G,                                         KC_H,         KC_J,         KC_K,         KC_UP,        KC_L,      KC_ENC_TOG,                              
                                  KC_Z,         KC_X,          KC_C,         KC_V,         KC_B,        TD(TD_TOG_TILD),                 KC_N,         KC_M,         KC_LEFT,     KC_DOWN,       KC_RIGHT,      
                                                      KC_LCTL,        KC_LALT,      KC_LCMD,      KC_SPC,            KC_BSPC,   KC_RCMD,       KC_ENT,       KC_DEL
 
@@ -64,12 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define NUM_ENC_MODES 2
 enum encoder_modes{
     VOLUME,
-    SCROLL,
-    MOUSEL,
-    MOUSER,
+    SCROLL
 };
 
-static uint8_t encoder_mode = VOLUME;
+static uint8_t encoder_mode = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -100,20 +101,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
           tap_code(KC_PGUP);
         }
 	    break;
-      case MOUSEL:
-      if (clockwise) {
-          tap_code(KC_MS_LEFT);
-        } else {
-          tap_code(KC_MS_RIGHT);
-        }
-      break;
-      case MOUSER:
-      if (clockwise) {
-          tap_code(KC_MS_UP);
-        } else {
-          tap_code(KC_MS_DOWN);
-        }
-      break;
     }
 
   } 
