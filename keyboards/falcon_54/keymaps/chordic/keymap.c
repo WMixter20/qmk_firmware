@@ -9,7 +9,7 @@ enum wm_keycodes {
 };
 enum wm_tapdances {
     TD_ESC_TILD = 0,
-    TD_TOG_TILD,
+    TD_TOG_TILD = 1,
     TD_SHIFT_CAPS
 };
 
@@ -17,7 +17,7 @@ enum wm_tapdances {
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
     [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, CW_TOGG),
-    [TD_TOG_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_ENC_TOG, KC_MNXT)
+    [TD_TOG_TILD] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_MPRV)
 };
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -64,9 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 
-#define NUM_ENC_MODES 2
+#define NUM_ENC_MODES 3
 enum encoder_modes{
     VOLUME,
+    WINDOW,
     SCROLL
 };
 
@@ -94,6 +95,25 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
           tap_code(KC_VOLD);
         }
       break;
+      case WINDOW:
+        if (clockwise) {
+          register_code16(KC_LCTL);
+          register_code16(KC_LOPT);
+          register_code16(KC_RIGHT);
+          
+          unregister_code16(KC_LCTL);
+          unregister_code16(KC_LOPT);
+          unregister_code16(KC_LOPT);
+        } else {
+          register_code16(KC_LCTL);
+          register_code16(KC_LOPT);
+          register_code16(KC_LEFT);  
+
+          unregister_code16(KC_LCTL);
+          unregister_code16(KC_LOPT);
+          unregister_code16(KC_LEFT);
+        }
+	    break;
       case SCROLL:
         if (clockwise) {
           tap_code(KC_PGDN);
